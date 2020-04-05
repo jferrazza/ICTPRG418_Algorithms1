@@ -450,7 +450,7 @@ namespace SortingAssignment1
             sw.Stop();
             if (getfile)
             {
-                WriteLines(str, num + ".output_linearsearch.text");
+                WriteLines(str, num + ".output_linearsearch.txt");
 
             }
             WriteLines2(str);
@@ -552,7 +552,7 @@ namespace SortingAssignment1
 
             WriteLines2(str);
             if (getfile)
-                WriteLines(str, num + ".output_linearsearch.text");
+                WriteLines(str, num + ".output_linearsearch.txt");
             Console.WriteLine($"{new TimeSpan(sw.ElapsedTicks).TotalSeconds} seconds");
             time = new TimeSpan(sw.ElapsedTicks);
 
