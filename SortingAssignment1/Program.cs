@@ -210,7 +210,7 @@ namespace SortingAssignment1
             str.Add(BigO_For.BinarySearch(linesSorted.Count()).ToString());
             str.Add("");
             str.Add("");
-            str.Add("The quotient (division) of the average search times respectively returns: (|)");
+            str.Add("The quotient (division) between the two average search times respectively returns: (|)");
             var divide1 = (double)averageLinearSearch.Ticks / (double)averageBinarySearch.Ticks;
             str.Add(divide1.ToString());
             str.Add("");
@@ -227,13 +227,21 @@ namespace SortingAssignment1
             var divide4 = averageBinarySearch.Ticks / BigO_For.BinarySearch(linesSorted.Count());
             str.Add(divide4.ToString());
             str.Add("");
-            str.Add("Log10 of the last two respective numbers:");
-            var log1 = (int)Math.Log(divide3);
-            var log2 = (int)Math.Log(divide4);
+            str.Add("Log10 of the last four respective numbers:");
+            var log1 = (int)Math.Log(divide1);
+            var log2 = (int)Math.Log(divide2);
+            var log3 = (int)Math.Log(divide3);
+            var log4 = (int)Math.Log(divide4);
             str.Add("Search time to search time - " + log1.ToString());
             str.Add("Big O to Big O - " + log2.ToString());
-            if (log1 != log2) str.Add("----Result: NOT proportionate to Big O Notation!!!----");
-            else if (log1 != log2) str.Add("Result: Proportionate to Big O Notation!!!");
+            if (log1 == log2) str.Add("PROPORTIONAL!!!");
+            else str.Add("---- NOT PROPORTIONAL!!!----");
+            str.Add("Search time to Big O L - " + log3.ToString());
+            str.Add("Search time to Big O B - " + log4.ToString());
+            if (log3 == log4) str.Add("PROPORTIONAL!!!");
+            else str.Add("---- NOT PROPORTIONAL!!!----");
+            if ((log3 == log4) || (log1 == log2)) str.Add("PASS!!!");
+            else str.Add("----FAIL!!!----");
 
             WriteLines(str, "output_analysis.txt");
             WriteLines2(str);
@@ -560,7 +568,7 @@ namespace SortingAssignment1
             public static double BinarySearch(int length)
             {
 
-                return (double)Math.Log(length);
+                return (double)(length * Math.Log(length));
             }
         }
 
