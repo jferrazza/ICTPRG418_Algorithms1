@@ -1,0 +1,218 @@
+using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.IO;
+using System.Linq;
+using System.Runtime.InteropServices;
+using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Diagnostics;
+
+namespace SortingAssignment1
+{
+    class Program
+    {
+        #region Main
+        public static void Main(string[] args)
+        {
+
+            _.PrintLogo();
+
+            for (int i = 0; i < 4; i++)
+            {
+                Console.WriteLine();
+            }
+
+
+            ChangeData();
+            Console.Clear();
+            while (true)
+
+            {
+                Console.WriteLine("----------------------");
+                var ch1 = _.Ask("Select an option...", new string[] { "INSERTION SORT", "(OPTIONS/EXIT...)" });
+                switch (ch1)
+                {
+                    case 0:
+
+                        InsertionSort();
+                        break;
+                    default:
+                        var ch2 = _.Ask("Select an option...", new string[] { "(CLEAR SCREEN)", "(CHANGE DATA)", "(EXIT)", "BACK" });
+                        switch (ch2)
+                        {
+                            case 0:
+                                Console.Clear();
+                                break;
+                            case 1:
+                                ChangeData();
+                                break;
+                            case 2:
+                                Environment.Exit(0);
+                                break;
+                        }
+
+                        break;
+                }
+
+            }
+        }
+        private static void ChangeData()
+        {
+            lines.Clear();
+            Console.WriteLine("Data reset for data change!");
+
+            var f = 0;
+
+            f = _.Ask("Which data would you like to use?", new string[] { "REAL DATA!", "TEST DATA" });
+
+            if (f == 0)
+            {
+                ReadLines();
+
+            }
+            else
+            {
+                lines = new int[] { 5, 3, 1, 2, 4 }.ToList();
+                Console.WriteLine("Okay then, done.");
+            }
+            Console.WriteLine("List is a " + ListName(lines));
+            if (_.Ask("Do you want a preview?", new string[] { "N", "Y" }) == 1) WriteLines(lines, "output_previewunordered.csv");
+        }
+        #endregion
+        #region Sorts
+        private static void InsertionSort()
+        {
+            List<int> lines2 = new List<int>();
+            for (int i = 0; i < lines.Count; i++)
+            {
+                lines2.Add(lines[i]);
+            }
+            // based off https://www.w3resource.com/csharp-exercises/searching-and-sorting-algorithm/searching-and-sorting-algorithm-exercise-6.php
+            Console.WriteLine($"Doing Insertion Sort with {ListName(lines2)} ...");
+            Console.WriteLine("Please Wait...");
+            var sw = new Stopwatch();
+            sw.Start();
+            for (int i1 = 0; i1 < lines2.Count - 1; i1++)
+            {
+                for (int i2 = i1 + 1; i2 > 0; i2--)
+                {
+
+                    if (lines2[i2 - 1] > lines2[i2])
+                    {
+                        var temp = lines2[i2 - 1];
+                        lines2[i2 - 1] = lines2[i2];
+                        lines2[i2] = temp;
+
+
+
+                    }
+                }
+
+
+            }
+            Console.WriteLine("Done Insertion Sort ...");
+
+
+
+
+            WriteLines(lines2, "output_insert.csv");
+            sw.Stop();
+            Console.WriteLine($"{new TimeSpan(sw.ElapsedTicks).TotalSeconds} seconds");
+        }
+
+        private static void ShellSort()
+        {
+            List<int> lines2 = new List<int>();
+            for (int i = 0; i < lines.Count; i++)
+            {
+                lines2.Add(lines[i]);
+            }
+            // based off https://www.w3resource.com/csharp-exercises/searching-and-sorting-algorithm/searching-and-sorting-algorithm-exercise-6.php
+
+            int i1, i2, inc, temp;
+            inc = 3;
+
+            while (inc > 0)
+            {
+                i1 = 0;
+                if (i1 < lines2.Count)
+                {
+
+                }
+
+
+                //    Console.WriteLine($"{Math.Round((double)i1 / lines2.Count * 100)}%");
+                //    Console.CursorLeft = 0;
+                //    Console.CursorTop--;
+
+            }
+            Console.WriteLine("Done Shell Sort...");
+
+
+
+            WriteLines(lines2, "output_shell.csv");
+
+        }
+        #endregion
+        #region Read/Write
+        public static List<int> lines = new List<int>();
+
+
+        public static string ListName(List<int> list)
+        {
+            return $"list  with {list.Count} items including {{{list[0]}, {list[1]}, {list[2]}...}}";
+        }
+        public static void WriteLines(List<int> lines, string filename)
+        {
+
+            //placeholder code
+            var d = new StreamWriter(filename);
+            foreach (var item in lines)
+            {
+                d.WriteLine(item);
+            }
+            d.Close();
+            Process.Start("NOTEPAD", filename);
+
+        }
+        public static void WriteLines2(List<int> lines)
+        {
+            //placeholder code
+            foreach (var item in lines)
+            {
+                Console.WriteLine(item);
+            }
+
+        }
+        public static void ReadLines()
+        {
+
+
+            Console.WriteLine($"|><| Loading numbers...");
+
+            https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/file-system/how-to-read-a-text-file-one-line-at-a-time
+
+            int counter = 0;
+            string line;
+
+            // Read the file and display it line by line.  
+            System.IO.StringReader file =
+                new StringReader(Properties.Resources.unsorted_numbers);
+
+            while ((line = file.ReadLine()) != null)
+            {
+                lines.Add(int.Parse(line));
+                counter++;
+
+
+            }
+
+
+            Console.WriteLine($":) Got the {counter} numbers.");
+            file.Close();
+        }
+        #endregion
+    }
+}

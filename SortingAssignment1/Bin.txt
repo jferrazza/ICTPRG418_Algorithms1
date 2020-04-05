@@ -1,0 +1,98 @@
+using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.IO;
+using System.Linq;
+using System.Runtime.InteropServices;
+using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
+
+namespace SortingAssignment1
+{
+    class Program
+    {
+        public static void Main(string[] args)
+        {
+
+
+            for (int i = 0; i < 4; i++)
+            {
+                Console.WriteLine();
+            }
+
+            ReadLines();
+            _.PrintLogo();
+
+            while (true)
+
+            {
+
+                var ch1 = _.Ask("Select an option...", new string[] { "(SEE UNSORTED NUMBERS)", "(EXIT)" });
+                switch (ch1)
+                {
+                    case 0:
+                        WriteLines(lines);
+
+                        break;
+                    default:
+                        Environment.Exit(0);
+                        break;
+                }
+            }
+
+        }
+
+        public static List<int> lines = new List<int>();
+
+        public static void ReadLines()
+        {
+            Console.WriteLine($"|><| Loading numbers...");
+
+            https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/file-system/how-to-read-a-text-file-one-line-at-a-time
+
+            int counter = 0;
+            string line;
+
+            // Read the file and display it line by line.  
+            System.IO.StringReader file =
+                new StringReader(Properties.Resources.unsorted_numbers);
+            while ((line = file.ReadLine()) != null)
+            {
+                lines.Add(int.Parse(line));
+                counter++;
+            }
+            Console.WriteLine($":) Got the {counter} numbers.");
+            file.Close();
+        }
+        public static void WriteLines(List<int> lines)
+        {
+            int counter = 0;
+
+            foreach (var item in lines)
+            {
+                counter++;
+
+                if (counter % 100 == 0)
+                {
+                    Console.WriteLine();
+                    Console.WriteLine();
+                    Console.WriteLine($"~~~{counter} of {lines.Count} {Math.Round(((double)counter/lines.Count)*100,2)}% ~~~");
+                    Console.WriteLine();
+
+                    if (counter % 500 == 0)
+                    {
+                        Console.WriteLine($"(iteration break)");
+
+                        Thread.Sleep(100);
+
+                    }
+                }
+
+                Console.Write($"{item},  ");
+
+            }
+            Console.WriteLine();
+        }
+    }
+}
